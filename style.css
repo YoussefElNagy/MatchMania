@@ -24,7 +24,7 @@ h1 {
     display: block;
     justify-content: center;
     align-items: center;
-    background-color: #252A34;
+    background-color:none;
     color: #FF2E63;
     animation-name: myAn;
     animation-duration: 2s;
@@ -41,7 +41,11 @@ h1 {
 
 body {
     font-family: "Changa", sans-serif;
-    background-color: #252A34;
+    /* background-color: #252A34; */
+    background-image: linear-gradient(#252A34, hsl(221, 22%, 25%));
+background-size: 100% 100%; /* make the gradient cover the entire background */
+background-repeat: no-repeat; /* prevent the gradient from repeating */
+
 }
 
 
@@ -62,11 +66,12 @@ body {
     margin: 20px;
     padding: 10px;
     border: none;
+    outline: none;
     border-radius: 10px;
-    font-size: 1.5em;
+    font-size: 2.5em;
     font-family: "Changa", sans-serif;
     color: #FF2E63;
-    background-color: #252A34;
+    background-color: transparent;
 
 }
 
