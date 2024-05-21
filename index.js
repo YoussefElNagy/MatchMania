@@ -31,9 +31,19 @@ class Game {
         this.timer = document.getElementById('timeRem');
         this.counter = document.getElementById('flips');
         this.audio = new AudioController();
+        this.startBtn = document.getElementById('startBtn');
+        this.gameRunning = false;
+        this.countdown = null;
     }
 
     startGame() {
+        if (this.gameRunning) {
+            this.resetGame();
+            return;
+        }
+
+        this.gameRunning = true;
+        this.startBtn.innerText = "Reset Game";
         this.cardToCheck = null;
         this.totalFlips = 0;
         this.timeRem = this.totalTime;
@@ -41,15 +51,36 @@ class Game {
         this.matchedCards = [];
         this.busy = true;
 
+        this.setCardsBusy(true);
 
         setTimeout(() => {
             this.shuffleCards(this.cards);
             this.countdown = this.startCountDown();
             this.busy = false;
+            setTimeout(() => {
+                this.hideCards();
+                this.setCardsBusy(false);
+            }, 500);
         }, 500);
-        this.hideCards();
+
         this.timer.innerText = this.timeRem;
         this.counter.innerText = this.totalFlips;
+    }
+
+    resetGame() {
+        clearInterval(this.countdown);
+        this.gameRunning = false;
+        this.startBtn.innerText = "Start Game!";
+        this.timeRem = this.totalTime;
+        this.totalFlips = 0;
+        this.matchedCards = [];
+        this.cardToCheck = null;
+        this.hideCards();
+        this.setCardsBusy(false);
+        this.timer.innerText = this.timeRem;
+        this.counter.innerText = this.totalFlips;
+        this.audio.playGameOverSound();
+
     }
 
     hideCards() {
@@ -72,11 +103,12 @@ class Game {
     gameOver() {
         clearInterval(this.countdown);
         this.audio.playGameOverSound();
+        this.startBtn.innerText = "Start Game!";
+        this.gameRunning = false;
     }
 
     canFlip(card) {
-        return true;
-        // return !this.busy && !this.matchedCards.includes(card) && card.isMatched === false && card !== this.cardToCheck;
+        return !this.busy && !card.classList.contains('busy') && !this.matchedCards.includes(card) && card !== this.cardToCheck;
     }
 
     getCardType(card) {
@@ -101,7 +133,7 @@ class Game {
         if (this.getCardType(card) === this.getCardType(this.cardToCheck)) {
             this.cardMatch(card, this.cardToCheck);
         } else {
-            this.cardMismatch(card, this.cardToCheck);
+            this.cardMistmatch(card, this.cardToCheck);
         }
         this.cardToCheck = null;
     }
@@ -117,7 +149,7 @@ class Game {
         }
     }
 
-    cardMismatch(card1, card2) {
+    cardMistmatch(card1, card2) {
         this.busy = true;
         setTimeout(() => {
             card1.classList.remove('visible');
@@ -128,7 +160,7 @@ class Game {
 
     shuffleCards(cards) {
         for (let i = cards.length - 1; i > 0; i--) {
-            let j = Math.floor(Math.random() * (i + 1)); 
+            let j = Math.floor(Math.random() * (i + 1));
             cards[j].style.order = i;
             cards[i].style.order = j;
         }
@@ -137,12 +169,18 @@ class Game {
     win() {
         this.audio.playWinSound();
         clearInterval(this.countdown);
+        this.startBtn.innerText = "Start Game";
+        this.gameRunning = false;
+    }
+
+    setCardsBusy(isBusy) {
         this.cards.forEach(card => {
+            if (isBusy) {
                 card.classList.add('busy');
-        })
-        setTimeout(this.hideCards(),5000)
-        
-        
+            } else {
+                card.classList.remove('busy');
+            }
+        });
     }
 }
 
