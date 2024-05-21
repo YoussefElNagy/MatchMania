@@ -46,6 +46,6 @@ The game provides a counter to track the number of flips and a reset button to r
 1. **Clone the Repository:**
    ```sh
    git clone https://github.com/YoussefElNagy/MatchMania/
-   cd memory-card-game
+   cd MatchMania
 2. **Open the Game:**
 Open index.html in a web browser to start playing the game!
