@@ -73,7 +73,7 @@ class Game {
         this.gameRunning = false;
         this.startBtn.innerText = "Start Game!";
         this.startBtn.style.color= '#FF2E63'
-
+        document.getElementById('game-over-text').classList.add('visible');
         this.timeRem = this.totalTime;
         this.totalFlips = 0;
         this.matchedCards = [];
