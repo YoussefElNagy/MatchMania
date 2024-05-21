@@ -105,6 +105,10 @@ class Game {
         this.audio.playGameOverSound();
         this.startBtn.innerText = "Start Game!";
         this.gameRunning = false;
+        this.hideCards();
+        document.getElementById('game-over-text').classList.add('visible');
+
+
     }
 
     canFlip(card) {
@@ -171,6 +175,8 @@ class Game {
         clearInterval(this.countdown);
         this.startBtn.innerText = "Start Game";
         this.gameRunning = false;
+        document.getElementById('victory-text').classList.add('visible');
+        this.hideCards();
     }
 
     setCardsBusy(isBusy) {
@@ -188,11 +194,19 @@ function ready() {
     let cards = Array.from(document.getElementsByClassName('card'));
     let game = new Game(100, cards);
     let startBtn = document.getElementById('startBtn');
+    let overlays = Array.from(document.getElementsByClassName('overlay-text'));
+
     startBtn.addEventListener('click', () => game.startGame());
 
     cards.forEach(card => {
         card.addEventListener('click', () => {
             game.flipCard(card);
+        });
+    });
+
+    overlays.forEach(overlay => {
+        overlay.addEventListener('click', () => {
+            overlay.classList.remove('visible');
         });
     });
 }
