@@ -44,6 +44,7 @@ class Game {
 
         this.gameRunning = true;
         this.startBtn.innerText = "Reset Game";
+        this.startBtn.style.color= '#EAEAEA'
         this.cardToCheck = null;
         this.totalFlips = 0;
         this.timeRem = this.totalTime;
@@ -71,6 +72,8 @@ class Game {
         clearInterval(this.countdown);
         this.gameRunning = false;
         this.startBtn.innerText = "Start Game!";
+        this.startBtn.style.color= '#FF2E63'
+
         this.timeRem = this.totalTime;
         this.totalFlips = 0;
         this.matchedCards = [];
@@ -104,6 +107,7 @@ class Game {
         clearInterval(this.countdown);
         this.audio.playGameOverSound();
         this.startBtn.innerText = "Start Game!";
+        this.startBtn.style.color= '#FF2E63'
         this.gameRunning = false;
         this.hideCards();
         document.getElementById('game-over-text').classList.add('visible');
@@ -174,6 +178,7 @@ class Game {
         this.audio.playWinSound();
         clearInterval(this.countdown);
         this.startBtn.innerText = "Start Game";
+        this.startBtn.style.color= '#FF2E63'
         this.gameRunning = false;
         document.getElementById('victory-text').classList.add('visible');
         this.hideCards();

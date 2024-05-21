@@ -72,7 +72,7 @@ background-repeat: no-repeat; /* prevent the gradient from repeating */
     font-family: "Changa", sans-serif;
     color: #FF2E63;
     background-color: transparent;
-
+    transition: 0.3s linear;
 }
 
 .controls button:hover {
