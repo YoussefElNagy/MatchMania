@@ -31,8 +31,8 @@ The game provides a counter to track the number of flips and a reset button to r
    - Tracks the number of flips made by the player.
 
 6. **End Messages:**
-   - A success message is displayed when all pairs are successfully matched.
-   - A fail message is displayed when the player presses the reset button before matching all pairs.
+   - A victory message is displayed when all pairs are successfully matched.
+   - A game over message is displayed when the player presses the reset button before matching all pairs.
 
 ## Features
 

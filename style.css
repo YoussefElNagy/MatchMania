@@ -139,7 +139,15 @@ background-repeat: no-repeat; /* prevent the gradient from repeating */
 .card > * :hover{
     box-shadow: none;
 }
+.card::selection{
+    background-color: inherit;
+    color: inherit;
+}
 
+.card>image::selection{
+    background-color: inherit;
+    color: inherit;
+}
 .front{
     transform: rotateY(180deg);
     background-color: #EAEAEA;
@@ -189,6 +197,10 @@ footer{
   .overlay-text.visible {
     display: flex;
     animation: overlay-grow 500ms forwards;
+  }
+
+  #newHigh {
+    font-size: .3em;
   }
   
   @keyframes overlay-grow {

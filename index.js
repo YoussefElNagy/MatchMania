@@ -34,6 +34,7 @@ class Game {
         this.startBtn = document.getElementById('startBtn');
         this.gameRunning = false;
         this.countdown = null;
+        this.highScore=Infinity;
     }
 
     startGame() {
@@ -73,7 +74,7 @@ class Game {
         this.gameRunning = false;
         this.startBtn.innerText = "Start Game!";
         this.startBtn.style.color= '#FF2E63'
-        document.getElementById('game-over-text').classList.add('visible');
+
         this.timeRem = this.totalTime;
         this.totalFlips = 0;
         this.matchedCards = [];
@@ -83,6 +84,8 @@ class Game {
         this.timer.innerText = this.timeRem;
         this.counter.innerText = this.totalFlips;
         this.audio.playGameOverSound();
+        document.getElementById('game-over-text').classList.add('visible');
+
 
     }
 
@@ -180,6 +183,7 @@ class Game {
         this.startBtn.innerText = "Start Game";
         this.startBtn.style.color= '#FF2E63'
         this.gameRunning = false;
+        this.updateHighScore();
         document.getElementById('victory-text').classList.add('visible');
         this.hideCards();
     }
@@ -192,6 +196,21 @@ class Game {
                 card.classList.remove('busy');
             }
         });
+    }
+
+    updateHighScore() {
+        if (this.totalFlips < this.highScore ||  document.getElementById('highscore').textContent =='N/A') {
+            this.highScore = this.totalFlips;
+            this.updateHighScoreDisplay(this.highScore);
+            document.getElementById('newHigh').textContent='You Have Set a New Highscore!'
+        }
+        else document.getElementById('newHigh').textContent=''
+
+
+    }
+
+    updateHighScoreDisplay(n) {
+        document.getElementById('highscore').textContent = n === Infinity ? 'N/A' : n;
     }
 }
 
