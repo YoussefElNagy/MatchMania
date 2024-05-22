@@ -180,7 +180,7 @@ class Game {
     win() {
         this.audio.playWinSound();
         clearInterval(this.countdown);
-        this.startBtn.innerText = "Start Game";
+        this.startBtn.innerText = "Start Game!";
         this.startBtn.style.color= '#FF2E63'
         this.gameRunning = false;
         this.updateHighScore();
@@ -202,7 +202,7 @@ class Game {
         if (this.totalFlips < this.highScore ||  document.getElementById('highscore').textContent =='N/A') {
             this.highScore = this.totalFlips;
             this.updateHighScoreDisplay(this.highScore);
-            document.getElementById('newHigh').textContent='You Have Set a New Highscore!'
+            document.getElementById('newHigh').textContent='New Highscore Set!'
         }
         else document.getElementById('newHigh').textContent=''
 
@@ -216,7 +216,7 @@ class Game {
 
 function ready() {
     let cards = Array.from(document.getElementsByClassName('card'));
-    let game = new Game(100, cards);
+    let game = new Game(70, cards);
     let startBtn = document.getElementById('startBtn');
     let overlays = Array.from(document.getElementsByClassName('overlay-text'));
 

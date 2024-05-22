@@ -201,6 +201,7 @@ footer{
 
   #newHigh {
     font-size: .3em;
+    color: #FF2E63;
   }
   
   @keyframes overlay-grow {
