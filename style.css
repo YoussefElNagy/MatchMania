@@ -214,3 +214,46 @@ footer{
       font-size: 10em;
     }
   }
+
+  @media (max-width: 768px) {
+    h1 {
+        font-size: 3em;
+    }
+    .controls button {
+        font-size: 1.5em;
+    }
+    .game-info {
+        font-size: 1.5em;
+    }
+    .game-container {
+        grid-gap: 10px;
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    .card {
+        width: 80px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.5em;
+    }
+    .controls button {
+        font-size: 1.2em;
+    }
+    .game-info {
+        font-size: 1.2em;
+    }
+    .game-container {
+        grid-gap: 5px;
+        grid-template-columns: repeat(2, 1fr); 
+    }
+    .card {
+        width: 70px;
+        height: 110px;
+    }
+    #newHigh {
+        font-size: 0.2em;
+    }
+}

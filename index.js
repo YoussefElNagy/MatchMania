@@ -114,8 +114,6 @@ class Game {
         this.gameRunning = false;
         this.hideCards();
         document.getElementById('game-over-text').classList.add('visible');
-
-
     }
 
     canFlip(card) {
