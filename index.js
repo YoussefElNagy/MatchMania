@@ -1,9 +1,9 @@
 class AudioController {
     constructor() {
-        this.gameOverSound = new Audio("aud\\game-over.mp3");
-        this.matchSound = new Audio("aud\\match.mp3");
-        this.startSound = new Audio("aud\\start.mp3");
-        this.winSound = new Audio("aud\\win.mp3");
+        this.gameOverSound = new Audio("aud/game-over.mp3");
+        this.matchSound = new Audio("aud/match.mp3");
+        this.startSound = new Audio("aud/start.mp3");
+        this.winSound = new Audio("aud/win.mp3");
     }
 
     playGameOverSound() {
@@ -34,7 +34,7 @@ class Game {
         this.startBtn = document.getElementById('startBtn');
         this.gameRunning = false;
         this.countdown = null;
-        this.highScore=Infinity;
+        this.highScore = Infinity;
     }
 
     startGame() {
@@ -45,7 +45,7 @@ class Game {
 
         this.gameRunning = true;
         this.startBtn.innerText = "Reset Game";
-        this.startBtn.style.color= '#EAEAEA'
+        this.startBtn.style.color = '#EAEAEA';
         this.cardToCheck = null;
         this.totalFlips = 0;
         this.timeRem = this.totalTime;
@@ -73,7 +73,7 @@ class Game {
         clearInterval(this.countdown);
         this.gameRunning = false;
         this.startBtn.innerText = "Start Game!";
-        this.startBtn.style.color= '#FF2E63'
+        this.startBtn.style.color = '#FF2E63';
 
         this.timeRem = this.totalTime;
         this.totalFlips = 0;
@@ -85,8 +85,6 @@ class Game {
         this.counter.innerText = this.totalFlips;
         this.audio.playGameOverSound();
         document.getElementById('game-over-text').classList.add('visible');
-
-
     }
 
     hideCards() {
@@ -110,14 +108,15 @@ class Game {
         clearInterval(this.countdown);
         this.audio.playGameOverSound();
         this.startBtn.innerText = "Start Game!";
-        this.startBtn.style.color= '#FF2E63'
+        this.startBtn.style.color = '#FF2E63';
         this.gameRunning = false;
         this.hideCards();
+        this.setCardsBusy(true);
         document.getElementById('game-over-text').classList.add('visible');
     }
 
     canFlip(card) {
-        return !this.busy && !card.classList.contains('busy') && !this.matchedCards.includes(card) && card !== this.cardToCheck;
+        return this.gameRunning && !this.busy && !card.classList.contains('busy') && !this.matchedCards.includes(card) && card !== this.cardToCheck;
     }
 
     getCardType(card) {
@@ -179,11 +178,12 @@ class Game {
         this.audio.playWinSound();
         clearInterval(this.countdown);
         this.startBtn.innerText = "Start Game!";
-        this.startBtn.style.color= '#FF2E63'
+        this.startBtn.style.color = '#FF2E63';
         this.gameRunning = false;
         this.updateHighScore();
         document.getElementById('victory-text').classList.add('visible');
         this.hideCards();
+        this.setCardsBusy(true);
     }
 
     setCardsBusy(isBusy) {
@@ -197,14 +197,13 @@ class Game {
     }
 
     updateHighScore() {
-        if (this.totalFlips < this.highScore ||  document.getElementById('highscore').textContent =='N/A') {
+        if (this.totalFlips < this.highScore || document.getElementById('highscore').textContent === 'N/A') {
             this.highScore = this.totalFlips;
             this.updateHighScoreDisplay(this.highScore);
-            document.getElementById('newHigh').textContent='New Highscore Set!'
+            document.getElementById('newHigh').textContent = 'New Highscore Set!';
+        } else {
+            document.getElementById('newHigh').textContent = '';
         }
-        else document.getElementById('newHigh').textContent=''
-
-
     }
 
     updateHighScoreDisplay(n) {
