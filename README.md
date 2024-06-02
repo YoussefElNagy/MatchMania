@@ -7,6 +7,9 @@ all cards display the same back face image. Each pair of cards has a matching fa
 The objective of the game is to match all pairs of cards by flipping them two at a time. 
 The game provides a counter to track the number of flips and a reset button to restart the game as well as a timer for countdown.
 
+## Welcome Message
+When the page launches, an overlay text is displayed ti welcomes the user and provide the game instructions before playing. 
+
 ## Gameplay
 
 1. **Starting the Game:**
@@ -33,6 +36,10 @@ The game provides a counter to track the number of flips and a reset button to r
 6. **End Messages:**
    - A victory message is displayed when all pairs are successfully matched.
    - A game over message is displayed when the player presses the reset button before matching all pairs.
+  
+7. **Toggling Game Mode:**
+   - A button that toggles game mode between normal speed or x2 speed.
+   - Is active only when the game is not running.
 
 ## Features
 
@@ -40,6 +47,8 @@ The game provides a counter to track the number of flips and a reset button to r
 - **Counter:** Counts the number of flips made by the player.
 - **Reset Button:** Resets the game and shuffles the cards.
 - **End Messages:** Displays a success message on completing the game and a fail message on losing.
+- **Crazy Mode:** Runs the game on x2 speed. 
+
 
 ## Setup and Installation
 
@@ -50,6 +59,4 @@ The game provides a counter to track the number of flips and a reset button to r
 2. **Open the Game:**
 Open index.html in a web browser to start playing the game!
 
-## References
-github.com/WebDevSimplified/Mix-Or-Match
 
