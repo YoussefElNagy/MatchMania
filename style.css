@@ -52,10 +52,11 @@ body {
     color: #08D9D6;
 }
 .highscores {
-    color: #EAEAEA;
-    font-size: 2em;
+    color: #08D9D6;
+    font-size: 2.5em;
     margin: 0;
     padding: 0;
+    font-weight: normal;
 }
 .scores-info{
     margin: auto;
@@ -86,12 +87,11 @@ body {
     opacity: 0.7;
 }
 
-
-
 .game-info-container{
     grid-column: 1/-1;
     display: flex;
     justify-content: space-between;
+    transform: translateY(-10px);
 }
 
 .scores {
@@ -113,8 +113,6 @@ body {
 .card {
     width: 105px;
     height: 145px;
-    /* width: vw;
-    height: 20vh; */
     border-radius: 5px;
     position: relative;
 }
@@ -249,7 +247,7 @@ footer{
     justify-content: center;
 }
 
-#highScoreNormal, #highScoreCrazy{
+#highScoreNormal, #highScoreCrazy,#flips,#timeRem{
     color: #EAEAEA;
 }
 
