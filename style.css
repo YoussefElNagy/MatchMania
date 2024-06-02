@@ -47,9 +47,18 @@ body {
 
 
 /*Game*/
-.game-info{
+.game-info, .scores-info{
     font-size: 2em;
     color: #08D9D6;
+}
+.highscores {
+    color: #EAEAEA;
+    font-size: 2em;
+    margin: 0;
+    padding: 0;
+}
+.scores-info{
+    margin: auto;
 }
 
 .controls {
@@ -82,14 +91,20 @@ body {
 .game-info-container{
     grid-column: 1/-1;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+}
+
+.scores {
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: space-between;
 }
 
 
 .game-container {
     display: grid;
     grid-template-columns: repeat(4,auto);
-    grid-gap: 50px;
+    grid-gap: 40px;
     margin:  50px, auto;
     justify-content: center;
 
@@ -229,6 +244,15 @@ footer{
     animation-iteration-count: infinite;
     transition: linear;
 }
+
+.scores{
+    justify-content: center;
+}
+
+#highScoreNormal, #highScoreCrazy{
+    color: #EAEAEA;
+}
+
 
 @keyframes  myAn2 {
     0%   {color: #EAEAEA;}

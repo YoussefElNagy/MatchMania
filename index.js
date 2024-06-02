@@ -49,7 +49,8 @@ class Game {
         this.startBtn = document.getElementById('startBtn');
         this.gameRunning = false;
         this.countdown = null;
-        this.highScore = Infinity;
+        this.highScoreNormal = Infinity;
+        this.highScoreCrazy = Infinity;
         this.crazyModeBtn = document.getElementById('crazyMode');
         this.crazyMode = false; 
     }
@@ -227,17 +228,28 @@ class Game {
     }
 
     updateHighScore() {
-        if (this.totalFlips < this.highScore || document.getElementById('highscore').textContent === 'N/A') {
-            this.highScore = this.totalFlips;
-            this.updateHighScoreDisplay(this.highScore);
+        if(this.crazyMode){
+            if (this.totalFlips < this.highScoreCrazy || document.getElementById('highScoreCrazy').textContent === 'N/A') {
+                this.highScoreCrazy = this.totalFlips;
+                this.updateHighScoreDisplay(this.highScoreCrazy,'highScoreCrazy');
+                document.getElementById('newHigh').textContent = 'New Highscore Set!';
+            } else {
+                document.getElementById('newHigh').textContent = '';
+        }
+    }
+        else{
+        if (this.totalFlips < this.highScoreNormal || document.getElementById('highScoreNormal').textContent === 'N/A') {
+            this.highScoreNormal = this.totalFlips;
+            this.updateHighScoreDisplay(this.highScoreNormal,'highScoreNormal');
             document.getElementById('newHigh').textContent = 'New Highscore Set!';
         } else {
             document.getElementById('newHigh').textContent = '';
         }
     }
+    }
 
-    updateHighScoreDisplay(n) {
-        document.getElementById('highscore').textContent = n === Infinity ? 'N/A' : n;
+    updateHighScoreDisplay(n,id) {
+        document.getElementById(id).textContent = n === Infinity ? 'N/A' : n;
     }
 }
 
@@ -272,6 +284,9 @@ function ready() {
         crazyModeBtn.innerHTML = `Crazy Mode: <span id="crazyBool">${game.crazyMode ? 'On' : 'Off'}</span>`;
         crazyBool.style.color = game.crazyMode? '#08D9D6' : '#EAEAEA';
     });
+
+    game.updateHighScoreDisplay(game.highScoreNormal, 'highscoreNormal');
+    game.updateHighScoreDisplay(game.highScoreCrazy, 'highscoreCrazy');
 }
 
 if (document.readyState === 'loading') {
