@@ -11,7 +11,24 @@
 </head>
 <body>
 
-    <div class="header"><h1>M a t c h M a n i a</h1></div>
+    <div class="header"><h1 id="header">M a t c h M a n i a</h1></div>
+
+    <div class="overlay-text visible" id="welcome-overlay">
+    
+                <h2>About the Game</h2>
+                <p>MatchMania is a fun and challenging memory game where you match pairs of cards within a limited time. <br> Test your memory and beat your best score!</p>
+    
+                <h2>How to Play</h2>
+                <ul>
+                    <li>Flip cards to find matching pairs.</li>
+                    <li>Match all pairs before time runs out.</li>
+                    <li>Try to beat your best score!</li>
+                    <li>If you think you're good enough, try <span style="color: #FF2E63;">CRAZY MODE!</span></li>
+                </ul>
+    
+                <h2>Ready to Play?</h2>
+                <p id="press">Press Anywhere to Play!</p>    
+    </div>
 
     <div id="game-over-text" class="overlay-text">
         GAME OVER!
@@ -22,11 +39,10 @@
         </div>
       </div>
 
-
      <!--Board-->
      <div class="controls">
-        <button id="startBtn">Start Game!
-        <!-- <button id="resetBtn">Reset Game</button> -->
+        <button id="startBtn">Start Game!</button>
+        <button id="crazyMode">Crazy Mode: <span id="crazyBool">Off</span></button>
         </div>
 
         <div class="game-container">

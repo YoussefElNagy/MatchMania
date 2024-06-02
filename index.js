@@ -4,9 +4,23 @@ class AudioController {
         this.matchSound = new Audio("aud/match.mp3");
         this.startSound = new Audio("aud/start.mp3");
         this.winSound = new Audio("aud/win.mp3");
+        this.bgMusic = new Audio("aud/bg.mp3");
+        this.bgMusic.volume = 0.6;
+        this.bgMusic.loop = true;
+        this.bgMusic.playbackRate = 1.5;
+    }
+
+    startMusic() {
+        this.bgMusic.play();
+    }
+
+    stopMusic() {
+        this.bgMusic.pause();
+        this.bgMusic.currentTime = 0;
     }
 
     playGameOverSound() {
+        this.stopMusic();
         this.gameOverSound.play();
     }
 
@@ -19,6 +33,7 @@ class AudioController {
     }
 
     playWinSound() {
+        this.stopMusic();
         this.winSound.play();
     }
 }
@@ -35,6 +50,8 @@ class Game {
         this.gameRunning = false;
         this.countdown = null;
         this.highScore = Infinity;
+        this.crazyModeBtn = document.getElementById('crazyMode');
+        this.crazyMode = false; 
     }
 
     startGame() {
@@ -52,13 +69,17 @@ class Game {
         this.audio.playStartSound();
         this.matchedCards = [];
         this.busy = true;
-
+        this.crazyModeBtn.disabled = true;
         this.setCardsBusy(true);
 
         setTimeout(() => {
             this.shuffleCards(this.cards);
             this.countdown = this.startCountDown();
             this.busy = false;
+            if(this.crazyMode) {
+                this.audio.startMusic();
+            }
+
             setTimeout(() => {
                 this.hideCards();
                 this.setCardsBusy(false);
@@ -85,6 +106,9 @@ class Game {
         this.counter.innerText = this.totalFlips;
         this.audio.playGameOverSound();
         document.getElementById('game-over-text').classList.add('visible');
+
+        this.crazyModeBtn.disabled = false;
+
     }
 
     hideCards() {
@@ -95,13 +119,14 @@ class Game {
     }
 
     startCountDown() {
+        const interval = this.crazyMode ? 500 : 1000; // Adjust interval for crazyMode
         return setInterval(() => {
             this.timeRem--;
             this.timer.innerText = this.timeRem;
             if (this.timeRem === 0) {
                 this.gameOver();
             }
-        }, 1000);
+        }, interval);
     }
 
     gameOver() {
@@ -113,6 +138,7 @@ class Game {
         this.hideCards();
         this.setCardsBusy(true);
         document.getElementById('game-over-text').classList.add('visible');
+        this.crazyModeBtn.disabled = false;
     }
 
     canFlip(card) {
@@ -147,7 +173,9 @@ class Game {
     }
 
     cardMatch(card1, card2) {
-        this.audio.playMatchSound();
+        if(!this.crazyMode) {
+            this.audio.playMatchSound();
+        }
         this.matchedCards.push(card1);
         this.matchedCards.push(card2);
         card1.classList.add('matched');
@@ -159,11 +187,12 @@ class Game {
 
     cardMistmatch(card1, card2) {
         this.busy = true;
+        const delay = this.crazyMode ? 500 : 1000; // Adjust delay for crazyMode
         setTimeout(() => {
             card1.classList.remove('visible');
             card2.classList.remove('visible');
             this.busy = false;
-        }, 1000);
+        }, delay);
     }
 
     shuffleCards(cards) {
@@ -184,6 +213,7 @@ class Game {
         document.getElementById('victory-text').classList.add('visible');
         this.hideCards();
         this.setCardsBusy(true);
+        this.crazyModeBtn.disabled = false;
     }
 
     setCardsBusy(isBusy) {
@@ -216,9 +246,11 @@ function ready() {
     let game = new Game(70, cards);
     let startBtn = document.getElementById('startBtn');
     let overlays = Array.from(document.getElementsByClassName('overlay-text'));
+    let headerText = document.getElementById("header");
+    let crazyModeBtn = document.getElementById('crazyMode'); 
 
     startBtn.addEventListener('click', () => game.startGame());
-
+    welcomeOverlay = document.getElementById('welcome-overlay');
     cards.forEach(card => {
         card.addEventListener('click', () => {
             game.flipCard(card);
@@ -229,6 +261,16 @@ function ready() {
         overlay.addEventListener('click', () => {
             overlay.classList.remove('visible');
         });
+    });
+
+    headerText.addEventListener('click', function(){
+        welcomeOverlay.classList.add('visible');
+    });
+
+    crazyModeBtn.addEventListener('click', () => {
+        game.crazyMode = !game.crazyMode;
+        crazyModeBtn.innerHTML = `Crazy Mode: <span id="crazyBool">${game.crazyMode ? 'On' : 'Off'}</span>`;
+        crazyBool.style.color = game.crazyMode? '#08D9D6' : '#EAEAEA';
     });
 }
 
